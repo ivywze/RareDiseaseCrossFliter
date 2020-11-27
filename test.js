@@ -20,7 +20,7 @@ var phyChart = dc.barChart("#phy-chart");
 var psyChart = dc.barChart("#psy-chart");
 var sameDiseaseChart = dc.pieChart('#sameDisease-chart');
 
-
+var careChart = dc.barChart("#care-chart");
 
 //var sickAgeChart = dc.rowChart('#sick-age-chart');
 
@@ -85,6 +85,10 @@ d3.csv('rare1.csv').then(function(data) {
         return d.id;
     });
 
+    var care = ndx.dimension(function(d) {
+        return d.Q44_药物是否纳入医保;
+    });
+    var careGroup = care.group();
 
 
 
@@ -164,8 +168,8 @@ d3.csv('rare1.csv').then(function(data) {
         .point("西藏自治区", 450, 950)
         .point("新疆维吾尔自治区", 400, 570)
 
-    .point("澳门", 5, 5)
-        .point("香港", 1, 0)
+    .point("澳门", -1, -1)
+        .point("香港", -1, -1)
 
 
 
@@ -174,8 +178,8 @@ d3.csv('rare1.csv').then(function(data) {
 
     // raChart.width(450)
     //     .height(450)
-        //     .dimension(cities)
-        //     .group(citiesGroup)
+    //     .dimension(cities)
+    //     .group(citiesGroup)
 
 
     // .elasticRadius(d3.scaleLinear().domain([0, 400]).range([0, 10]))
@@ -280,6 +284,17 @@ d3.csv('rare1.csv').then(function(data) {
         .renderLabel(true)
         .legend(dc.legend().x(10).legendText(function(d) { return d.name + " " + d.data; }));
 
+    sameDiseaseChart
+        .width(270)
+        .height(250)
+        // Define pie radius
+        .radius(80)
+        // Set dimension
+        .dimension(sameDisease)
+        // Set group
+        .group(sameDiseaseGroup)
+        .renderLabel(true)
+        .legend(dc.legend().x(10).legendText(function(d) { return d.name + " " + d.data; }))
 
     diseaseRowChart /* dc.rowChart('#employment-chart', 'chartGroup') */
         .width(1000)
@@ -309,7 +324,7 @@ d3.csv('rare1.csv').then(function(data) {
         .xUnits(dc.units.ordinal)
         .brushOn(true)
         .yAxisLabel("No. of patients")
-        .xAxisLabel("live by oneself")
+        .xAxisLabel("able to live by oneself")
         .dimension(live)
         .group(liveGroup)
 
@@ -319,6 +334,27 @@ d3.csv('rare1.csv').then(function(data) {
         // .legend(dc.legend().x(350).legendText(function(d) { return d.name + " cannot "; }))
 
     liveChart.render();
+
+    careChart /* dc.rowChart('#employment-chart', 'chartGroup') */
+        .width(270)
+        .height(200)
+
+    // .x(d3.scaleBand())
+    // .xUnits(dc.units.ordinal)
+    .x(d3.scaleOrdinal().domain(['totally can', 'totally cannot', 'partly can', 'almost can','almost can','almost can','almost can']))
+        .xUnits(dc.units.ordinal)
+        .brushOn(true)
+        .yAxisLabel("No. of patients")
+        .xAxisLabel("able to live by oneself")
+        .dimension(care)
+        .group(careGroup)
+
+    .label(function(d) {
+            return d.key;
+        })
+        // .legend(dc.legend().x(350).legendText(function(d) { return d.name + " cannot "; }))
+
+    careChart.render();
 
     moneyChart /* dc.rowChart('#employment-chart', 'chartGroup') */
         .width(400)
