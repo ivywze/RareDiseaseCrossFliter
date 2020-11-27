@@ -86,9 +86,24 @@ d3.csv('rare1.csv').then(function(data) {
     });
 
     var care = ndx.dimension(function(d) {
-        return d.Q44_药物是否纳入医保;
+
+        return d.Q44_药物是否纳入医保
+
     });
-    var careGroup = care.group();
+    var careGroup = care.group().reduceCount(),
+        nonEmptycareGroup = remove_bins(careGroup);
+
+
+
+    function remove_bins(careGroup) { // (source_group, bins...}
+        return {
+            all: function() {
+                return careGroup.all().filter(function(d) {
+                    return d.key != "";
+                });
+            }
+        };
+    }
 
 
 
@@ -336,23 +351,24 @@ d3.csv('rare1.csv').then(function(data) {
     liveChart.render();
 
     careChart /* dc.rowChart('#employment-chart', 'chartGroup') */
-        .width(270)
-        .height(200)
+        .width(450)
+        .height(300)
 
     // .x(d3.scaleBand())
     // .xUnits(dc.units.ordinal)
-    .x(d3.scaleOrdinal().domain(['totally can', 'totally cannot', 'partly can', 'almost can','almost can','almost can','almost can']))
+    .x(d3.scaleOrdinal().domain(['no idea', 'not cover', 'cover more than 75%', 'cover 50-75%', 'cover 25-50%', 'cover 0-25%']))
         .xUnits(dc.units.ordinal)
         .brushOn(true)
         .yAxisLabel("No. of patients")
-        .xAxisLabel("able to live by oneself")
+        .xAxisLabel("medical insurance")
         .dimension(care)
-        .group(careGroup)
+        .group(nonEmptycareGroup)
 
     .label(function(d) {
             return d.key;
         })
         // .legend(dc.legend().x(350).legendText(function(d) { return d.name + " cannot "; }))
+
 
     careChart.render();
 
