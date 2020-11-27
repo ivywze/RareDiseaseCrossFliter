@@ -21,17 +21,14 @@
 
 
     <div class="container">
+      
         <div>
             <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
         </div>
 
 
         <div id="ca-chart">
-            <strong>birth place</strong>
-
-
-
-
+            <strong>birth place of patients</strong>
 
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -1666,7 +1663,13 @@
 
 
  -->
+ <div id="care-chart" style="text-align: center;">
+   <strong>care</strong>
+   <!-- <span class="reset" style="display: none;">range: <span class="filter"></span></span> -->
+   <a class="reset" href="javascript:careChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
+   <div class="clearfix"></div>
+</div>
 
 
     </div>
@@ -1675,9 +1678,8 @@
     <div class="container">
 
 
-        <h2 style='text-align: center'>rare disease </h2>
-        <h3 style='text-align: center'>top 4 disease crossfilter</h3>
-        <br>
+       
+     
 
         <!-- <div class="row"> -->
 
@@ -1697,7 +1699,7 @@
             <div class="clearfix"></div>
         </div>
         <div id="nation-chart" style="text-align: center;">
-            <strong>Nation</strong>
+            <strong>Ethnic group</strong>
             <a class="reset" href="javascript:nationChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
             <div class="clearfix"></div>
@@ -1705,20 +1707,20 @@
 
 
         <div id="live-chart" style="text-align: center;">
-            <strong>live</strong>
+            <strong></strong>
             <!-- <span class="reset" style="display: none;">range: <span class="filter"></span></span> -->
             <a class="reset" href="javascript:liveChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
             <div class="clearfix"></div>
         </div>
         <div id="sameDisease-chart" style="text-align: center;">
-            <strong>same disease</strong>
+            <strong>same disease in family member</strong>
             <a class="reset" href="javascript:sameDiseaseChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
             <div class="clearfix"></div>
         </div>
         <div id="money-chart" style="text-align: center;">
-            <strong>money</strong>
+            <strong></strong>
             <!-- <span class="reset" style="display: none;">range: <span class="filter"></span></span> -->
             <a class="reset" href="javascript:moneyChart.filterAll();dc.redrawAll();" style="display: none;">reset</a>
 
@@ -1742,7 +1744,7 @@
         </div>
 
 
-        <div id="test"><strong>test</strong></div>
+        <!-- <div id="test"><strong>test</strong></div> -->
 
         <div id="disease-row-chart" style="text-align: center;">
             <strong>Disease</strong>
